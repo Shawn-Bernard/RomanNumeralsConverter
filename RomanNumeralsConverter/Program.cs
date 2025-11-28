@@ -24,19 +24,31 @@ namespace RomanNumeralsConverter
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter a number to convert");
-
-            string input = Console.ReadLine();
-            int inputNumber = int.Parse(input);
-
-            ConvertNumber(inputNumber);
-
-            Console.ReadKey();
+            //While loop just to keep throwing in numbers 
+            while (true)
+            {
+                Console.WriteLine("Enter a number to convert or enter random for a random number");
+                string input = Console.ReadLine();
+                // tries to convert the input line and spits out the int inputnumber
+                if (int.TryParse(input, out int inputNumber))
+                {
+                    ConvertNumber(inputNumber);
+                }
+                else if (input == "random")
+                {
+                    int randomNum = new Random().Next(1, 4000);
+                    ConvertNumber(randomNum);
+                }
+                else
+                {
+                    Console.WriteLine("This is not a number");
+                }
+            }
         }
 
         static void ConvertNumber(int number)
         {
-            string result = "";
+            string result = $"Roman number : {number} = ";
             int romanNumber = number;
 
             foreach (KeyValuePair<int,string> roman in romanDictionary)
@@ -53,7 +65,7 @@ namespace RomanNumeralsConverter
                 }
             }
 
-            Console.WriteLine($"Roman number : {number} = {result}");
+            Console.WriteLine(result);
         }
     }
 }
